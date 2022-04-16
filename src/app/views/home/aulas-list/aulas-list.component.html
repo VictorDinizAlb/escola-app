@@ -1,21 +1,29 @@
-<!-- <div fxLayout="row" fxLayoutAlign="start center"  style="padding: 2%;"> -->
-<div class="container" style="padding: 2%;">
-  <ng-container *ngFor="let aula of aulas" style="margin-top: 0.5%;">
-
-    <mat-card class="aula-card">
-        <mat-card-title>{{aula.materia.nome}}</mat-card-title>
-        <mat-card-subtitle>Professor: {{aula.professor.nome}}</mat-card-subtitle>
-      <mat-card-content>
-        <p>
-          The Shiba Inu is the smallest of the six original and distinct spitz breeds of dog from Japan.
-        </p>
-      </mat-card-content>
-      <mat-card-actions>
-        <button mat-button>LIKE</button>
-        <button mat-button>SHARE</button>
-      </mat-card-actions>
-    </mat-card>
-
-
-  </ng-container>
+<div class="container">
+  <div class="row">
+    <div class="col-sm-6 col-md-4 col-lg-3 mb-3" *ngFor="let aula of aulas">
+      <div class="card text-center" [ngClass]="verificaStatus(aula.status)">
+        <div class="card-header">
+          {{aula.dataHora | localDateTime}}
+        </div>
+        <div class="card-body">
+          <h5 class="card-title">{{aula.materia.nome}}</h5>
+          <p class="card-text">
+            Professor: {{aula.professor.nome}}
+          </p>
+          <p class="card-text aula-status" >{{aula.status}}</p>
+        </div>
+        <div class="card-footer text-muted">
+          <button
+            id="aula-button"
+            type="button"
+            class="btn btn-outline-danger btn-sm"
+            (click)="desmarcarAula(aula.id)"
+            [disabled]="aula.status != 'AGENDADA'"
+            >
+            Desmarcar
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>

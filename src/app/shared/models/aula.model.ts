@@ -3,9 +3,9 @@ import { Usuario } from "./usuario.model";
 
 export class Aula{
   id: number;
-  aluno: Usuario;
-  professor: Usuario;
-  materia: Materia;
+  aluno: string;
+  professor: string;
+  materia: string;
   dataHora: string;
   status: string;
 }

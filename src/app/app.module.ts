@@ -3,31 +3,31 @@ import { NgModule } from '@angular/core';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HomeComponent } from './views/home/home.component';
-import { MatToolbarModule } from '@angular/material/toolbar';
-import { MatButtonModule } from '@angular/material/button';
-import { AulasListComponent } from './views/home/aulas-list/aulas-list.component';
-import { MatCardModule } from '@angular/material/card';
 import { HttpClientModule } from '@angular/common/http';
-import { AulaService } from './shared/service/aula.service'
+import { AulasListComponent } from './views/home/aulas-list/aulas-list.component';
+import { AulasFormComponent } from './views/home/aulas-form/aulas-form.component'
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { LocalDateTimePipe } from './shared/pipe/local-date-time.pipe';
 
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
-    AulasListComponent
+    AulasListComponent,
+    AulasFormComponent,
+    LocalDateTimePipe,
   ],
   imports: [
     HttpClientModule,
     BrowserModule,
     AppRoutingModule,
-    BrowserAnimationsModule,
-    MatToolbarModule,
-    MatButtonModule,
-    MatCardModule
+    FormsModule,
+    ReactiveFormsModule,
   ],
-  providers: [AulaService],
+  providers: [
+    LocalDateTimePipe
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

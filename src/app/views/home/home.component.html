@@ -1,8 +1,21 @@
-<mat-toolbar>
-  <mat-toolbar-row class="toolbar-row">
-    <span>Escola Eldorado</span>
-    <span class="spacer"></span>
-    <button mat-raised-button> + Aula </button>
-  </mat-toolbar-row>
-</mat-toolbar>
+<nav class="navbar navbar-expand navbar-dark bg-dark">
+  <div class="collapse navbar-collapse" id="navbarsExample02">
+    <p class="navbar-brand mr-auto">Escola Eldorado</p>
+
+    <!-- <button type="button" class="btn btn-light">Agendar</button> -->
+    <button
+      type="button"
+      class="btn btn-light"
+      data-toggle="modal"
+      data-target="#exampleModal"
+      data-whatever="@mdo">
+        Agendar
+    </button>
+  </div>
+</nav>
+
+<h2 class="mt-5 mb-5" style="text-align: center; font-size: 32px">Minhas aulas</h2>
+
+<app-aulas-form></app-aulas-form>
+
 <app-aulas-list></app-aulas-list>

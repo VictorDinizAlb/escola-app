@@ -9,7 +9,9 @@ import { AulaService } from 'src/app/shared/service/aula.service';
 })
 export class AulasListComponent implements OnInit {
 
-  aulas: Aula[];
+  aulas: Aula[] = [];
+
+  statusAula: string;
 
   constructor(
     public aulaService: AulaService
@@ -17,14 +19,37 @@ export class AulasListComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.getAulas(1);
+    this.getAulas(2);
   }
 
   getAulas(alunoId: number) {
     this.aulaService.getAulasPorAluno(alunoId).subscribe(resultado => {
       this.aulas = resultado;
-      console.log(this.aulas)
     });
   }
 
+  desmarcarAula(aulaId: number) {
+    this.aulaService.deleteAula(aulaId).subscribe(resultado => {
+      this.aulas = resultado;
+    })
+  }
+
+  verificaStatus(aulaStatus) {
+    switch (aulaStatus) {
+      case 'CANCELADA':
+        return 'aulaCancelada';
+
+      case 'AGENDADA':
+        return 'aulaAgendada';
+
+      case 'REALIZADA':
+        return 'aulaRealizada';
+    }
+    // if (aulaStatus == 'CANCELADA') {
+
+    //   return 'aulaCancelada';
+    // } else {
+    //   return 'aulaAgendada';
+    // }
+  }
 }

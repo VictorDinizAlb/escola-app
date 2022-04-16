@@ -1,14 +1,15 @@
-.container{
-  display: flex;
-  flex-direction: row;
-  justify-content: flex-start;
-  align-items: center;
-  align-content: flex-start;
-  border: solid red 1px;
+.aulaCancelada{
+  text-decoration: line-through;
 }
 
-.aula-card{
-  margin: 2%;
-  width: 140px;
-  border: green solid 1px;
+.aulaCancelada .aula-status{
+  color: red;
+}
+
+.aulaAgendada .aula-status{
+  color: green;
+}
+
+.aulaRealizada{
+  opacity: 0.7;
 }
