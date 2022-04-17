@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  apiBaseUrl: "http://localhost:8080/",
+  apiBaseUrl: "http://35.198.43.107:8080/",
   aulaStatus: {
     agendada: 'AGENDADA',
     realizada: 'REALIZADA',
