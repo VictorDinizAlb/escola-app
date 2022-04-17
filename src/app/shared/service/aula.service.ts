@@ -1,9 +1,10 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { tokenize } from '@angular/compiler/src/ml_parser/lexer';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { Aula } from '../models/aula.model';
-import { AulaForm } from '../models/aulaForm.model';
+import { AulaForm } from '../models/form/aulaForm.model';
 
 @Injectable({
   providedIn: 'root'
@@ -14,7 +15,7 @@ export class AulaService {
 
   httpOptions = {
     headers: new HttpHeaders({
-      'Content-Type': 'application/json'
+      'Content-Type': 'application/json',
     })
   }
 

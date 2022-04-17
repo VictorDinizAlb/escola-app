@@ -1,6 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { Aula } from 'src/app/shared/models/aula.model';
+import { Usuario } from 'src/app/shared/models/usuario.model';
 import { AulaService } from 'src/app/shared/service/aula.service';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-aulas-list',
@@ -10,8 +12,14 @@ import { AulaService } from 'src/app/shared/service/aula.service';
 export class AulasListComponent implements OnInit {
 
   aulas: Aula[] = [];
-
   statusAula: string;
+
+  categoriaProfessor: string = environment.usuarioCategoria.professor;
+  categoriaAluno: string = environment.usuarioCategoria.aluno;
+
+
+
+  @Input() recebeUsuario: Usuario;
 
   constructor(
     public aulaService: AulaService
@@ -19,13 +27,26 @@ export class AulasListComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.getAulas(2);
+    this.getAulas(this.recebeUsuario.id, this.recebeUsuario.categoria);
   }
 
-  getAulas(alunoId: number) {
-    this.aulaService.getAulasPorAluno(alunoId).subscribe(resultado => {
-      this.aulas = resultado;
-    });
+  getAulas(usuarioId: number, usuarioCategoria: string) {
+    switch (usuarioCategoria) {
+      case this.categoriaAluno:
+        this.aulaService.getAulasPorAluno(usuarioId).subscribe(resultado => {
+          this.aulas = resultado;
+        });
+        break;
+
+      case this.categoriaProfessor:
+        this.aulaService.getAulasPorProfessor(usuarioId).subscribe(resultado => {
+          this.aulas = resultado;
+        });
+        break;
+
+      default:
+        break;
+    }
   }
 
   desmarcarAula(aulaId: number) {
@@ -36,20 +57,14 @@ export class AulasListComponent implements OnInit {
 
   verificaStatus(aulaStatus) {
     switch (aulaStatus) {
-      case 'CANCELADA':
+      case environment.aulaStatus.cancelada:
         return 'aulaCancelada';
 
-      case 'AGENDADA':
+      case environment.aulaStatus.agendada:
         return 'aulaAgendada';
 
-      case 'REALIZADA':
+      case environment.aulaStatus.realizada:
         return 'aulaRealizada';
     }
-    // if (aulaStatus == 'CANCELADA') {
-
-    //   return 'aulaCancelada';
-    // } else {
-    //   return 'aulaAgendada';
-    // }
   }
 }

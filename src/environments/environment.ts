@@ -4,7 +4,16 @@
 
 export const environment = {
   production: false,
-  apiBaseUrl: "http://localhost:8080/"
+  apiBaseUrl: "http://localhost:8080/",
+  aulaStatus: {
+    agendada: 'AGENDADA',
+    realizada: 'REALIZADA',
+    cancelada: 'CANCELADA',
+  },
+  usuarioCategoria: {
+    aluno: 'ALUNO',
+    professor: 'PROFESSOR'
+  }
 };
 
 /*

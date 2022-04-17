@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import * as moment from 'moment';
 import { Materia } from 'src/app/shared/models/materia.model';
@@ -22,6 +22,8 @@ export class AulasFormComponent implements OnInit {
 
   materiaId: number;
 
+  @Input() recebeUsuario: Usuario;
+
   constructor(
     private materiaService: MateriaService,
     private aulaService: AulaService,
@@ -32,7 +34,7 @@ export class AulasFormComponent implements OnInit {
     this.getMaterias();
 
     this.aulaFormulario = this.formBuilder.group({
-      alunoId: 2,
+      alunoId: [''],
       professorId: ['', [Validators.required]],
       materiaId: ['', [Validators.required]],
       aulaData: ['', [Validators.required]],
@@ -55,8 +57,10 @@ export class AulasFormComponent implements OnInit {
   }
 
   agendarAula() {
-    if (this.aulaFormulario.status != 'INVALID') {
+    if (this.aulaFormulario.valid) {
       let newDate: moment.Moment = moment(this.aulaFormulario.value.aulaData).local();
+
+      this.aulaFormulario.value.alunoId = this.recebeUsuario.id;
 
       this.aulaFormulario.value.dataHora = newDate.format("YYYY-MM-DD") + "T" + this.aulaFormulario.value.aulaHora;
       this.aulaService.postAula(this.aulaFormulario.value).subscribe(resultado => {

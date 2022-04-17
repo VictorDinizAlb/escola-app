@@ -1,27 +1,38 @@
 <div class="container">
-  <div class="row">
-    <div class="col-sm-6 col-md-4 col-lg-3 mb-3" *ngFor="let aula of aulas">
-      <div class="card text-center" [ngClass]="verificaStatus(aula.status)">
-        <div class="card-header">
-          {{aula.dataHora | localDateTime}}
-        </div>
-        <div class="card-body">
-          <h5 class="card-title">{{aula.materia.nome}}</h5>
-          <p class="card-text">
-            Professor: {{aula.professor.nome}}
-          </p>
-          <p class="card-text aula-status" >{{aula.status}}</p>
-        </div>
-        <div class="card-footer text-muted">
-          <button
-            id="aula-button"
-            type="button"
-            class="btn btn-outline-danger btn-sm"
-            (click)="desmarcarAula(aula.id)"
-            [disabled]="aula.status != 'AGENDADA'"
-            >
-            Desmarcar
-          </button>
+  <div>
+    <div class="row">
+      <em *ngIf="aulas.length == 0" style="font-size: 20px, text">Parece que você ainda não marcou nenhuma aula.</em>
+      <div class="col-sm-6 col-md-4 col-lg-4 mb-3" *ngFor="let aula of aulas">
+        <div class="card text-center" [ngClass]="verificaStatus(aula.status)">
+          <div class="card-header">
+            {{aula.dataHora | localDateTime}}
+          </div>
+          <div class="card-body">
+            <h5 class="card-title">{{aula.materia.nome}}</h5>
+            <div *ngIf="recebeUsuario.categoria == categoriaAluno">
+              <p class="card-text">
+                Professor(a): {{aula.professor.nome}}
+              </p>
+              <p class="card-text">
+                Contato: {{aula.professor.email}}
+              </p>
+            </div>
+            <div *ngIf="recebeUsuario.categoria == categoriaProfessor">
+              <p class="card-text">
+                Aluno(a): {{aula.aluno.nome}}
+              </p>
+              <p class="card-text">
+                Contato: {{aula.aluno.email}}
+              </p>
+            </div>
+            <p class="card-text aula-status">{{aula.status}}</p>
+          </div>
+          <div class="card-footer text-muted">
+            <button id="aula-button" type="button" class="btn btn-outline-danger btn-sm" (click)="desmarcarAula(aula.id)"
+              [disabled]="aula.status != 'AGENDADA'">
+              Desmarcar
+            </button>
+          </div>
         </div>
       </div>
     </div>

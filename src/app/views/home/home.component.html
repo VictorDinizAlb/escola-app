@@ -1,9 +1,9 @@
 <nav class="navbar navbar-expand navbar-dark bg-dark">
-  <div class="collapse navbar-collapse" id="navbarsExample02">
+  <div class="collapse navbar-collapse">
     <p class="navbar-brand mr-auto">Escola Eldorado</p>
 
-    <!-- <button type="button" class="btn btn-light">Agendar</button> -->
     <button
+      *ngIf="isUsuarioAluno"
       type="button"
       class="btn btn-light"
       data-toggle="modal"
@@ -11,11 +11,57 @@
       data-whatever="@mdo">
         Agendar
     </button>
+
+    <button type="button" class="btn btn-danger ml-3" (click)="encerrarSessao()">
+      Sair
+    </button>
   </div>
 </nav>
 
-<h2 class="mt-5 mb-5" style="text-align: center; font-size: 32px">Minhas aulas</h2>
+<h2 class="ml-3 mt-4">Olá, {{usuario.nome}}</h2>
 
-<app-aulas-form></app-aulas-form>
+<div class="row ml-2 mr-2" style="margin-right: 15px;">
+  <div class="col-3" style="margin-top: 45px;" *ngIf="!isUsuarioAluno">
+    <ul class="list-group">
+      <li class="list-group-item disabled">Minhas matérias</li>
 
-<app-aulas-list></app-aulas-list>
+      <li class="list-group-item" *ngFor="let materia of minhasMaterias">{{materia.nome}}</li>
+    </ul>
+
+    <div>
+      <p class="mt-3 mb-3">Adicionar matéria ao meu quadro de matérias.</p>
+
+      <form class="needs-validation" [formGroup]="vincularMateriaForm" novalidate>
+        <select class="form-control" formControlName="materiaId">
+          <option  *ngFor="let materia of materias"  [ngValue]="materia.id">
+            {{materia.nome}}
+          </option>
+        </select>
+        <button type="submit" class="btn btn-primary mt-2" (click)="vincularMateria()">Adicionar</button>
+      </form>
+
+      <p class="mt-3 mb-3">Cadastrar nova matéria.</p>
+
+      <form class="needs-validation" [formGroup]="novaMateriaForm" novalidate>
+        <div class="form-group mb-3">
+          <label for="inputNome" class="sr-only">Nova matéria.</label>
+          <input type="nome" id="inputNomel" class="form-control" placeholder="Nome completo" formControlName="nome" required>
+          <div class="invalid-feedback">
+            Por favor, digite o nome da nova matéria.
+          </div>
+        </div>
+        <button type="submit" class="btn btn-primary mt-2" (click)="cadastrarMateria()">Adicionar</button>
+      </form>
+    </div>
+  </div>
+
+  <div [ngClass]="verificaCategoria()">
+    <div class="titulo">
+      <h2>Minhas aulas</h2>
+    </div>
+
+    <app-aulas-form [recebeUsuario]="usuario" *ngIf="isUsuarioAluno"></app-aulas-form>
+
+    <app-aulas-list [recebeUsuario]="usuario"></app-aulas-list>
+  </div>
+</div>

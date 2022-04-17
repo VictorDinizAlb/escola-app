@@ -8,3 +8,9 @@
   font-size: 1.5em;
   height: 80px;
 }
+
+.titulo{
+  text-align: center;
+  height: 45px;
+  font-size: 32px;
+}
